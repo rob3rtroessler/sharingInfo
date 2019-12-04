@@ -12,7 +12,7 @@ mapOneVis = function(_parentElement, _dataShootings, _topoData) {
 mapOneVis.prototype.initVis = function() {
     let vis = this;
 
-    vis.margin = {top: 30, right: 80, bottom: 50, left: 80};
+    vis.margin = {top: 0, right: 0, bottom: 0, left: 0};
     vis.width = $('#' + vis.parentElement).width() - vis.margin.left - vis.margin.right;
     vis.height = $('#' + vis.parentElement).height() - margin.top - margin.bottom;
 
@@ -20,7 +20,7 @@ mapOneVis.prototype.initVis = function() {
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
     // Append Div for tooltip to SVG
     vis.div = d3.select("#map1")
@@ -114,20 +114,18 @@ mapOneVis.prototype.updateVis = function() {
 
     console.log('got called');
 
-    // get values - check out the values in the selection -> already providing the class names
+    // get values;
     let selectedValueOne = d3.select("#ranking-type").property("value");
     let selectedValueTwo = d3.select("#gender").property("value");
     let selectedValueThree = d3.select("#age").property("value");
 
-    // here's a log, showing the current selection
-    console.log('current selection (classes):', selectedValueOne, selectedValueTwo, selectedValueThree);
+    console.log(selectedValueOne, selectedValueTwo, selectedValueThree);
 
-    // now we only have to do two operations:
 
-    // #1: hide all circles
+    // hide all circles
     d3.selectAll('.mapOneCircle').transition().duration(500).attr('r', 0);
 
-    // #2: show only selected circles;
+    // then show only selected circles;
     d3.selectAll('.mapOneCircle' + selectedValueOne + selectedValueTwo + selectedValueThree).transition().duration(500).attr('r', 4);
 };
 
